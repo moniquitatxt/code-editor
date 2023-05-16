@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+/* eslint-env browser */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

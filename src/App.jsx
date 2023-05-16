@@ -1,8 +1,16 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import React from "react";
+import { RouterProvider } from "react-router-dom";
+import { Router as Routes } from "./routes/Router";
+import Header from "./components/Header";
 
 function App() {
-	return <div className="App"></div>;
+	return (
+		<ChakraProvider>
+			<Header />
+			<RouterProvider router={Routes} />
+		</ChakraProvider>
+	);
 }
 
 export default App;

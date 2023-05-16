@@ -12,6 +12,11 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@chakra-ui/layout": "^2.1.19",
+		"@chakra-ui/react": "^2.6.1",
+		"@emotion/react": "^11.11.0",
+		"@emotion/styled": "^11.11.0",
+		"framer-motion": "^4.1.17",
 		"localforage": "^1.10.0",
 		"match-sorter": "^6.3.1",
 		"react": "^18.2.0",
@@ -24,6 +29,7 @@
 		"@babel/cli": "^7.21.5",
 		"@babel/core": "^7.21.8",
 		"@babel/preset-env": "^7.21.5",
+		"eslint": "^8.40.0",
 		"react-scripts": "^5.0.1"
 	},
 	"browserslist": {
