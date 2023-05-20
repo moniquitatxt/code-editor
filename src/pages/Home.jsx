@@ -2,20 +2,7 @@ import * as React from "react";
 import { Box, Button, Heading, SimpleGrid } from "@chakra-ui/react";
 
 const Home = () => {
-	const onSubmit = async () => {
-		const url = "http://localhost:9000/api/users";
-		const response = await fetch(url, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				name: "maria",
-				age: 3,
-				email: "maria@hotmail.com",
-			}),
-		});
-
-		console.log(response);
-	};
+	const onSubmit = async () => {};
 
 	return (
 		<Box p={8}>
