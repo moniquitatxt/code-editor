@@ -64,3 +64,21 @@ export const updateProject = async (uid, projectId, code) => {
 		console.log(error.message);
 	}
 };
+
+export const deleteProject = async (uid, projectId) => {
+	try {
+		console.log("hola");
+
+		const response = await fetch(`${url}users/${uid}/projects/${projectId}`, {
+			method: "DELETE",
+		});
+		if (!response.ok) {
+			const error = await response.json();
+			console.log(response);
+			throw new Error(error.message);
+		}
+		console.log(response);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
