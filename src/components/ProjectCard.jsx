@@ -12,10 +12,10 @@ import {
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FaUser } from "react-icons/fa";
 
-const UserCard = ({ user }) => {
-	let truncatedUsername = user.username;
-	if (user.username.length > 12) {
-		truncatedUsername = user.username.slice(0, 12) + "...";
+const ProjectCard = ({ project }) => {
+	let truncatedProjectName = project.name;
+	if (project.name.length > 12) {
+		truncatedProjectName = project.name.slice(0, 12) + "...";
 	}
 
 	return (
@@ -23,7 +23,7 @@ const UserCard = ({ user }) => {
 			<Flex justifyContent="space-between" alignItems="center">
 				<Icon color="blue.500" as={FaUser} boxSize="36px" mr="2" />
 				<Box>
-					<Tooltip label={user.username}>
+					<Tooltip label={project.name}>
 						<Heading
 							as="h2"
 							size="md"
@@ -32,21 +32,21 @@ const UserCard = ({ user }) => {
 							isTruncated
 							fontFamily="Montserrat, sans-serif"
 						>
-							{truncatedUsername}
+							{truncatedProjectName}
 						</Heading>
 					</Tooltip>
-					<Button colorScheme="blue">Ver Usuario</Button>
+					<Button colorScheme="blue">Ver Proyecto</Button>
 				</Box>
 				<Flex>
-					<Tooltip label="Editar usuario">
+					<Tooltip label="Editar proyecto">
 						<IconButton
-							aria-label="Editar usuario"
+							aria-label="Editar proyecto"
 							icon={<EditIcon />}
 							mr="2"
 						/>
 					</Tooltip>
-					<Tooltip label="Eliminar usuario">
-						<IconButton aria-label="Eliminar usuario" icon={<DeleteIcon />} />
+					<Tooltip label="Eliminar proyecto">
+						<IconButton aria-label="Eliminar proyecto" icon={<DeleteIcon />} />
 					</Tooltip>
 				</Flex>
 			</Flex>
@@ -54,4 +54,4 @@ const UserCard = ({ user }) => {
 	);
 };
 
-export default UserCard;
+export default ProjectCard;

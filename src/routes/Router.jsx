@@ -7,16 +7,16 @@ import SignUp from "../pages/SignUp";
 
 export const Router = createBrowserRouter([
 	{
+		path: "/",
+		element: <Login />,
+	},
+	{
 		path: "/home/:username",
 		element: <Home />,
 	},
 	{
 		path: "/signup",
 		element: <SignUp />,
-	},
-	{
-		path: "/login",
-		element: <Login />,
 	},
 	{
 		path: "/adminHome",
