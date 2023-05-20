@@ -9,10 +9,12 @@ import {
 	Heading,
 	Button,
 } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { FaUser } from "react-icons/fa";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ username, uid, project }) => {
+	const navigate = useNavigate();
+
 	let truncatedProjectName = project.name;
 	if (project.name.length > 12) {
 		truncatedProjectName = project.name.slice(0, 12) + "...";
@@ -34,7 +36,14 @@ const ProjectCard = ({ project }) => {
 							{truncatedProjectName}
 						</Heading>
 					</Tooltip>
-					<Button colorScheme="blue">Ver Proyecto</Button>
+					<Button
+						onClick={() => {
+							navigate(`/home/${username}/${uid}/${project._id}`);
+						}}
+						colorScheme="blue"
+					>
+						Ver Proyecto
+					</Button>
 				</Box>
 				<Flex>
 					<Tooltip label="Eliminar proyecto">

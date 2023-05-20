@@ -62,7 +62,12 @@ const Home = () => {
 			</Flex>
 			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
 				{projects.map((project, index) => (
-					<ProjectCard key={index} project={project} />
+					<ProjectCard
+						key={index}
+						project={project}
+						uid={userId}
+						username={username}
+					/>
 				))}
 			</SimpleGrid>
 		</Box>
