@@ -61,7 +61,7 @@ const Login = () => {
 							<Link
 								fontWeight="bold"
 								_hover={{ textDecoration: "underline", color: "blue.500" }}
-								onClick={navigate("/signup")}
+								onClick={() => navigate("/signup")}
 							>
 								¿No estás registrado? Haz click aquí
 							</Link>
