@@ -11,16 +11,19 @@ import {
 } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../api/user";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		// Aquí se podría enviar la información a un servidor para autenticar al usuario
-		console.log(`Username: ${username}, Password: ${password}`);
+	const onSubmit = async () => {
+		const user = await getUser(username);
+
+		if (user) {
+			navigate(`/home/${username}`);
+		}
 	};
 
 	return (
@@ -54,7 +57,7 @@ const Login = () => {
 								onChange={(event) => setPassword(event.target.value)}
 							/>
 						</FormControl>
-						<Button m="10" type="submit" colorScheme="green">
+						<Button m="10" onClick={onSubmit} type="submit" colorScheme="green">
 							Iniciar sesión
 						</Button>
 						<Box>
