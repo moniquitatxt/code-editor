@@ -21,7 +21,6 @@ const ProjectCard = ({ project }) => {
 	return (
 		<Box borderWidth="1px" borderRadius="lg" p={4} bg="white" boxShadow="md">
 			<Flex justifyContent="space-between" alignItems="center">
-				<Icon color="blue.500" as={FaUser} boxSize="36px" mr="2" />
 				<Box>
 					<Tooltip label={project.name}>
 						<Heading
@@ -38,13 +37,6 @@ const ProjectCard = ({ project }) => {
 					<Button colorScheme="blue">Ver Proyecto</Button>
 				</Box>
 				<Flex>
-					<Tooltip label="Editar proyecto">
-						<IconButton
-							aria-label="Editar proyecto"
-							icon={<EditIcon />}
-							mr="2"
-						/>
-					</Tooltip>
 					<Tooltip label="Eliminar proyecto">
 						<IconButton aria-label="Eliminar proyecto" icon={<DeleteIcon />} />
 					</Tooltip>

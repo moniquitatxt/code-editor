@@ -4,6 +4,7 @@ import ProjectModal from "../components/ProjectModal";
 import { useParams } from "react-router";
 import { getProjects } from "../api/project";
 import { getUser } from "../api/user";
+import ProjectCard from "../components/ProjectCard";
 
 const Home = () => {
 	const { username } = useParams();
@@ -53,27 +54,16 @@ const Home = () => {
 				>
 					Crear nuevo proyecto
 				</Button>
-				<ProjectModal isOpen={isOpenModal} onClose={handleCloseModal} />
+				<ProjectModal
+					userId={userId}
+					isOpen={isOpenModal}
+					onClose={handleCloseModal}
+				/>
 			</Flex>
 			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
-				<Box
-					borderWidth="1px"
-					borderRadius="lg"
-					p={4}
-					bg="white"
-					boxShadow="md"
-				>
-					<Heading
-						as="h2"
-						size="md"
-						mb={4}
-						color="blue.500"
-						fontFamily="Montserrat, sans-serif"
-					>
-						Project 1
-					</Heading>
-					<Button colorScheme="blue">Ver Proyecto</Button>
-				</Box>
+				{projects.map((project, index) => (
+					<ProjectCard key={index} project={project} />
+				))}
 			</SimpleGrid>
 		</Box>
 	);

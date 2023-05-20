@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Modal,
 	ModalOverlay,
@@ -11,12 +11,18 @@ import {
 	Textarea,
 	Input,
 } from "@chakra-ui/react";
+import { createProject } from "../api/project";
 
 const ProjectModal = ({ userId, isOpen, onClose }) => {
 	const initialRef = React.useRef();
 	const finalRef = React.useRef();
 
-	const onSubmit = () => {};
+	const [name, setName] = useState("");
+	const [description, setDescription] = useState("");
+
+	const onSubmit = async () => {
+		await createProject(userId, { name, description });
+	};
 
 	return (
 		<Modal
@@ -36,16 +42,22 @@ const ProjectModal = ({ userId, isOpen, onClose }) => {
 							mb={3}
 							ref={initialRef}
 							required
+							onChange={(e) => setName(e.target.value)}
 						/>
-						<Textarea placeholder="Descripción del proyecto" mb={3} required />
+						<Textarea
+							placeholder="Descripción del proyecto"
+							mb={3}
+							required
+							onChange={(e) => setDescription(e.target.value)}
+						/>
 					</ModalBody>
 
 					<ModalFooter>
-						<Button variant="ghost" onClick={onClose} mr={3}>
-							Cancelar
-						</Button>
 						<Button colorScheme="blue" type="submit">
 							Crear proyecto
+						</Button>
+						<Button variant="ghost" onClick={onClose} mr={3}>
+							Cancelar
 						</Button>
 					</ModalFooter>
 				</form>
