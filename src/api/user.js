@@ -21,11 +21,13 @@ export const createUser = async (user) => {
 	}
 };
 
-export const getUsers = async () => {
-	const users = await fetch(url, {
+export const getUsers = async (callback) => {
+	const response = await fetch(url, {
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
 	});
 
-	return users;
+	const data = await response.json();
+
+	callback(data);
 };
