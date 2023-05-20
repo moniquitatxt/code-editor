@@ -14,7 +14,9 @@ const AdminHome = () => {
 	return (
 		<Container maxW="container.lg" py="6">
 			<Box mb="4">
-				<Text fontSize="2xl">Lista de usuarios</Text>
+				<Text fontSize="2xl" fontFamily="Montserrat, sans-serif">
+					Lista de usuarios
+				</Text>
 			</Box>
 			<SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="4">
 				{users.map((user, index) => (

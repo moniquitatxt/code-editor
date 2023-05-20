@@ -15,7 +15,7 @@ const UserCard = ({ user }) => {
 				<Flex alignItems="center">
 					<Icon as={FaUser} size="24px" mr="2" />
 					<Tooltip label={user.username}>
-						<Text fontSize="lg" isTruncated>
+						<Text fontFamily="Montserrat, sans-serif" fontSize="lg" isTruncated>
 							{truncatedUsername}
 						</Text>
 					</Tooltip>
