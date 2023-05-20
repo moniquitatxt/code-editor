@@ -1,61 +1,78 @@
 import React from "react";
-import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { useState } from "react";
-import { createUser } from "../api/user";
+import {
+	Box,
+	Button,
+	Flex,
+	FormControl,
+	FormLabel,
+	Input,
+	Link,
+} from "@chakra-ui/react";
+import TextInput from "../components/TextInput";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "../api/user";
 
 const Login = () => {
-	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [rPassword, setRPassword] = useState("");
+	const navigate = useNavigate();
 
 	const onSubmit = async () => {
-		if (username === "" || name === "" || password === "" || rPassword === "") {
-			alert("Por favor, complete todos los campos.");
-			return;
-		} else if (password != rPassword) {
-			alert("Las contraseñas no coinciden.");
-			return;
+		const user = await getUser(username);
+
+		if (user) {
+			navigate(`/home/${username}`);
 		}
-		await createUser({ name, username, password });
 	};
 
 	return (
-		<>
-			<FormControl>
-				<FormLabel>Nombre completo</FormLabel>
-				<Input placeholder="Nombre" onChange={(e) => setName(e.target.value)} />
-			</FormControl>
-			<FormControl mt={4}>
-				<FormLabel>Username</FormLabel>
-				<Input
-					placeholder="Username"
-					value={username}
-					onChange={(e) => setUsername(e.target.value)}
-				/>
-			</FormControl>
-			<FormControl mt={4}>
-				<FormLabel>Contraseña</FormLabel>
-				<Input
-					type="password"
-					placeholder="Contraseña"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-			</FormControl>
-			<FormControl mt={4}>
-				<FormLabel>Repetir contraseña</FormLabel>
-				<Input
-					type="password"
-					placeholder="Repetir contraseña"
-					value={rPassword}
-					onChange={(e) => setRPassword(e.target.value)}
-				/>
-			</FormControl>
-			<Button onClick={onSubmit} colorScheme="green">
-				Agregar
-			</Button>
-		</>
+		<Flex align="center" justify="flex-end" height="100vh">
+			<Box
+				w={{ base: "90%", sm: "80%", md: "50%" }}
+				h="100%"
+				bg="#D6EAF8"
+				p={8}
+				align="center"
+				boxShadow="md"
+				color="black"
+			>
+				<Flex mx="10%" align="center" justify="center" height="100%">
+					<Box w="100%" align="center" justify="center">
+						<FormControl mt="10" id="username">
+							<FormLabel>Usuario</FormLabel>
+							<TextInput
+								placeholder="Usuario"
+								onChange={(event) => setUsername(event.target.value)}
+							/>
+						</FormControl>
+						<FormControl mt="10" id="password">
+							<FormLabel>Contraseña</FormLabel>
+							<Input
+								border="2px solid #3498DB"
+								borderRadius="md"
+								type="password"
+								placeholder="Contraseña"
+								size="lg"
+								onChange={(event) => setPassword(event.target.value)}
+							/>
+						</FormControl>
+						<Button m="10" onClick={onSubmit} type="submit" colorScheme="green">
+							Iniciar sesión
+						</Button>
+						<Box>
+							<Link
+								fontWeight="bold"
+								_hover={{ textDecoration: "underline", color: "blue.500" }}
+								onClick={() => navigate("/signup")}
+							>
+								¿No estás registrado? Haz click aquí
+							</Link>
+						</Box>
+					</Box>
+				</Flex>
+			</Box>
+		</Flex>
 	);
 };
 
