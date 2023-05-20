@@ -18,7 +18,7 @@ const AdminHome = () => {
 					Lista de usuarios
 				</Text>
 			</Box>
-			<SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="4">
+			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
 				{users.map((user, index) => (
 					<UserCard key={index} user={user} />
 				))}
