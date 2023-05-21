@@ -38,13 +38,13 @@ const Home = () => {
 			<Flex justifyContent="space-between" alignItems="center" mb={8}>
 				<Heading
 					as="h1"
-					fontSize={["3xl", "4xl"]}
+					fontSize={["2xl", "3xl"]}
 					fontWeight="bold"
 					color="blue.500"
 					fontFamily="Montserrat, sans-serif"
 					textShadow="1px 1px #E2E8F0"
 				>
-					¡Bienvenido Programador!
+					{`¡Bienvenido Programador ${username}!`}
 				</Heading>
 				<Button
 					onClick={handleOpenModal}
