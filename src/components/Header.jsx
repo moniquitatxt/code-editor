@@ -7,7 +7,7 @@ import {
 	IconButton,
 	Tooltip,
 } from "@chakra-ui/react";
-import { FaCode, FaSignOutAlt } from "react-icons/fa";
+import { FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
@@ -35,19 +35,34 @@ const Header = () => {
 							Code Editor
 						</Heading>
 					</Button>
-					{/* Botón para cerrar sesión*/}
-					<Tooltip label="Cerrar Sesión">
-						<IconButton
-							onClick={() => {
-								navigate("/");
-							}}
-							bg="blue.500"
-							color="white"
-							aria-label="Cerrar sesión"
-							icon={<FaSignOutAlt />}
-							mr={2}
-						/>
-					</Tooltip>
+					<Box>
+						{/* Botón de ícono con tooltip para el manual de usuario */}
+						<Tooltip label="Manual de usuario">
+							<IconButton
+								onClick={() => {
+									navigate(`/home/${username}/manual`);
+								}}
+								bg="blue.500"
+								color="white"
+								aria-label="Manual de usuario"
+								icon={<FaInfoCircle />}
+								mr={2}
+							/>
+						</Tooltip>
+						{/* Botón para cerrar sesión*/}
+						<Tooltip label="Cerrar Sesión">
+							<IconButton
+								onClick={() => {
+									navigate("/");
+								}}
+								bg="blue.500"
+								color="white"
+								aria-label="Cerrar sesión"
+								icon={<FaSignOutAlt />}
+								mr={2}
+							/>
+						</Tooltip>
+					</Box>
 				</Flex>
 			</Box>
 			<Outlet />

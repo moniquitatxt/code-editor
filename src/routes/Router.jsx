@@ -5,8 +5,9 @@ import SignUp from "../pages/SignUp";
 import ProjectCodeEditor from "../pages/ProjectCodeEditor";
 import Header from "../components/Header";
 import WhichHome from "../pages/WhichHome";
+import Manual from "../pages/Manual";
 
-//Creación de las rutas con la librearía react router
+//Creación de las rutas con la librería react router
 export const Router = createBrowserRouter([
 	{
 		path: "/",
@@ -31,6 +32,10 @@ export const Router = createBrowserRouter([
 			{
 				path: "/home/:username",
 				element: <WhichHome />,
+			},
+			{
+				path: "/home/:username/manual",
+				element: <Manual />,
 			},
 			{
 				path: "/home/:username/:id/:projectId",
