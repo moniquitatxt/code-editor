@@ -43,8 +43,17 @@ const SignUp = () => {
 
 	return (
 		<Flex align="center" justify="flex-end" height="100vh">
+			<Box width="50vw" height="100vh" display={{ base: "none", md: "block" }}>
+				<Image
+					src="/assets/imagen.jpeg"
+					alt="Descripción de la imagen"
+					float="left"
+					width="100%"
+					height="100%"
+				/>
+			</Box>
 			<Box
-				w={{ base: "90%", sm: "80%", md: "50%" }}
+				w={{ base: "100%", md: "50%" }}
 				h="100%"
 				bg="#D6EAF8"
 				p={8}
