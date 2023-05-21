@@ -15,7 +15,6 @@ import { createProject } from "../api/project";
 
 const ProjectModal = ({ userId, isOpen, onClose }) => {
 	const initialRef = React.useRef();
-	const finalRef = React.useRef();
 
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
@@ -25,12 +24,7 @@ const ProjectModal = ({ userId, isOpen, onClose }) => {
 	};
 
 	return (
-		<Modal
-			isOpen={isOpen}
-			onClose={onClose}
-			initialFocusRef={initialRef}
-			finalFocusRef={finalRef}
-		>
+		<Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
 			<ModalOverlay />
 			<ModalContent>
 				<form onSubmit={onSubmit}>
@@ -51,13 +45,9 @@ const ProjectModal = ({ userId, isOpen, onClose }) => {
 							onChange={(e) => setDescription(e.target.value)}
 						/>
 					</ModalBody>
-
 					<ModalFooter>
 						<Button colorScheme="blue" type="submit">
 							Crear proyecto
-						</Button>
-						<Button variant="ghost" onClick={onClose} mr={3}>
-							Cancelar
 						</Button>
 					</ModalFooter>
 				</form>

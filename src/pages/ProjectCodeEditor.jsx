@@ -18,6 +18,7 @@ import {
 	Text,
 	Textarea,
 	Tooltip,
+	useDisclosure,
 } from "@chakra-ui/react";
 import {
 	FaArrowLeft,
@@ -30,9 +31,14 @@ import {
 } from "react-icons/fa";
 import { useParams } from "react-router";
 import { getProject, updateProject } from "../api/project";
+import DeleteModal from "../components/DeleteModal";
 
 const ProjectCodeEditor = () => {
 	const { username, id, projectId } = useParams();
+	const initialRef = React.useRef(null);
+	const finalRef = React.useRef(null);
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const [name, setName] = useState();
 	const [code, setCode] = useState();
@@ -56,7 +62,7 @@ const ProjectCodeEditor = () => {
 	};
 
 	return (
-		<Container mt={10} maxW="container.lg">
+		<Container ref={finalRef} mt={10} maxW="container.lg">
 			<IconButton
 				aria-label="Volver atrás"
 				icon={<FaArrowLeft />}
@@ -101,10 +107,19 @@ const ProjectCodeEditor = () => {
 						<IconButton
 							icon={<FaTrash />}
 							aria-label="Eliminar"
-							onClick={() => {}}
+							onClick={onOpen}
 							mr={2}
 						/>
 					</Tooltip>
+					<DeleteModal
+						username={username}
+						userId={id}
+						projectId={projectId}
+						initialRef={initialRef}
+						finalRef={finalRef}
+						isOpen={isOpen}
+						onClose={onClose}
+					/>
 					<Tooltip label="Ejecutar">
 						<IconButton
 							icon={<FaPlay />}

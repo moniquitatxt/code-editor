@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Box,
 	Flex,
@@ -9,8 +9,7 @@ import {
 	Heading,
 	Button,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const ProjectCard = ({ username, uid, project }) => {
 	const navigate = useNavigate();
@@ -19,6 +18,9 @@ const ProjectCard = ({ username, uid, project }) => {
 	if (project.name.length > 12) {
 		truncatedProjectName = project.name.slice(0, 12) + "...";
 	}
+
+	const createdAtDate = new Date(project.createdAt);
+	const formattedDate = createdAtDate.toLocaleDateString();
 
 	return (
 		<Box borderWidth="1px" borderRadius="lg" p={4} bg="white" boxShadow="md">
@@ -45,11 +47,11 @@ const ProjectCard = ({ username, uid, project }) => {
 						Ver Proyecto
 					</Button>
 				</Box>
-				<Flex>
-					<Tooltip label="Eliminar proyecto">
-						<IconButton aria-label="Eliminar proyecto" icon={<DeleteIcon />} />
-					</Tooltip>
-				</Flex>
+				<Box>
+					<Text fontSize="sm" color="gray.500" mt={4}>
+						Creado el {formattedDate}
+					</Text>
+				</Box>
 			</Flex>
 		</Box>
 	);
