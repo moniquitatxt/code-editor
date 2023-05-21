@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	Modal,
 	ModalOverlay,
@@ -14,30 +14,17 @@ import {
 import { deleteProject } from "../api/project";
 import { useNavigate } from "react-router-dom";
 
-const DeleteModal = ({
-	username,
-	userId,
-	projectId,
-	initialRef,
-	finalRef,
-	isOpen,
-	onClose,
-}) => {
+const DeleteModal = ({ username, userId, projectId, isOpen, onClose }) => {
 	const navigate = useNavigate();
+
 	const deleteP = async () => {
 		await deleteProject(userId, projectId);
-
 		navigate(`/home/${username}`);
 		onClose();
 	};
 
 	return (
-		<Modal
-			initialFocusRef={initialRef}
-			finalFocusRef={finalRef}
-			isOpen={isOpen}
-			onClose={onClose}
-		>
+		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalBody fontWeight="semibold" py={4}>

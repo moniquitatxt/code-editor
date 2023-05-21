@@ -38,8 +38,7 @@ import { useRef } from "react";
 import { saveAs } from "file-saver";
 const ProjectCodeEditor = () => {
 	const { username, id, projectId } = useParams();
-	const initialRef = React.useRef(null);
-	const finalRef = React.useRef(null);
+	const myRef = useRef();
 	const refSalida = useRef();
 	const refError = useRef();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -105,7 +104,7 @@ const ProjectCodeEditor = () => {
 	};
 
 	return (
-		<Container ref={finalRef} mt={10} maxW="container.lg">
+		<Container autoFocus mt={10} maxW="container.lg">
 			<IconButton
 				aria-label="Volver atrás"
 				icon={<FaArrowLeft />}
@@ -148,9 +147,12 @@ const ProjectCodeEditor = () => {
 					</Tooltip>
 					<Tooltip label="Eliminar">
 						<IconButton
+							ref={myRef}
 							icon={<FaTrash />}
 							aria-label="Eliminar"
-							onClick={onOpen}
+							onClick={() => {
+								onOpen();
+							}}
 							mr={2}
 						/>
 					</Tooltip>
@@ -158,10 +160,11 @@ const ProjectCodeEditor = () => {
 						username={username}
 						userId={id}
 						projectId={projectId}
-						initialRef={initialRef}
-						finalRef={finalRef}
 						isOpen={isOpen}
-						onClose={onClose}
+						onClose={() => {
+							window.location.reload();
+							onClose();
+						}}
 					/>
 					<Tooltip label="Ejecutar">
 						<IconButton

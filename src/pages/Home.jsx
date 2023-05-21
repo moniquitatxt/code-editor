@@ -17,6 +17,7 @@ const Home = () => {
 	};
 	const handleCloseModal = () => {
 		setIsOpenModal(false);
+		window.location.reload();
 	};
 
 	useEffect(() => {
