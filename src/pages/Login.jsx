@@ -46,7 +46,7 @@ const Login = () => {
 			</Box>
 
 			<Box
-				w={{ base: "100%", sm: "80%", md: "50%" }}
+				w={{ base: "100%", md: "50%" }}
 				h="100%"
 				bg="#D6EAF8"
 				p={8}
