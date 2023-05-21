@@ -23,7 +23,6 @@ import {
 import {
 	FaArrowLeft,
 	FaFileExport,
-	FaFileImport,
 	FaInfoCircle,
 	FaPlay,
 	FaSave,

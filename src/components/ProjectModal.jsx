@@ -29,7 +29,7 @@ const ProjectModal = ({ userId, isOpen, onClose }) => {
 		//Espera a la función de la api que recibe el id del usuario y un objeto con el nombre y descripción del proyecto para crearlo
 		//Esta función createProject hace una llamada al servidor para crear el proyecto
 		const response = await createProject(userId, { name, description });
-		console.log(response);
+		alert(response);
 	};
 
 	return (
