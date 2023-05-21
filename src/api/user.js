@@ -1,5 +1,9 @@
-const url = `http://localhost:9000/api/`;
+//Este archivo tiene las funciones que contienen las peticiones correspondientes para el CRUD de los usuarioss
 
+// Se define la URL base para las solicitudes a la API
+const url = `https://code-editor-service.onrender.com/api/`;
+
+// Una función que recibe un objeto `user` como parámetro y realiza una solicitud HTTP POST para crear un nuevo usuario en la API
 export const createUser = async (user) => {
 	try {
 		const response = await fetch(`${url}users`, {
@@ -21,6 +25,7 @@ export const createUser = async (user) => {
 	}
 };
 
+// Una función que recibe una función `callback` como parámetro y realiza una solicitud HTTP GET para obtener todos los usuarios registrados en el sistema
 export const getUsers = async (callback) => {
 	const response = await fetch(`${url}users`, {
 		method: "GET",
@@ -32,6 +37,7 @@ export const getUsers = async (callback) => {
 	callback(data);
 };
 
+//Una función que recibe el nombre de usuario como parámetro y realiza una solicitud HTTP GET para obtener los datos del usuario especificado
 export const getUser = async (username) => {
 	const response = await fetch(`${url}users/${username}`, {
 		method: "GET",
