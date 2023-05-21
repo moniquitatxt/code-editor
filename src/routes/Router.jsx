@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import AdminHome from "../pages/AdminHome";
 import SignUp from "../pages/SignUp";
 import ProjectCodeEditor from "../pages/ProjectCodeEditor";
+import Header from "../components/Header";
 
 export const Router = createBrowserRouter([
 	{
@@ -16,19 +17,26 @@ export const Router = createBrowserRouter([
 		element: <Login />,
 	},
 	{
-		path: "/home/:username",
-		element: <Home />,
-	},
-	{
-		path: "/home/:username/:id/:projectId",
-		element: <ProjectCodeEditor />,
-	},
-	{
 		path: "/signup",
 		element: <SignUp />,
 	},
 	{
-		path: "/adminHome",
-		element: <AdminHome />,
+		path: "/home",
+		element: <Header />,
+		children: [
+			{
+				path: "/home/:username",
+				element: <Home />,
+			},
+			{
+				path: "/home/:username/:id/:projectId",
+				element: <ProjectCodeEditor />,
+			},
+
+			{
+				path: "/home/adminHome",
+				element: <AdminHome />,
+			},
+		],
 	},
 ]);
