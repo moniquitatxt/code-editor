@@ -1,4 +1,5 @@
 //Este archivo tiene las funciones que contienen las peticiones correspondientes para el CRUD de los proyectos
+//Leyenda los "response = await fetch" son peticiones a la API con su correspondiente método y ruta
 
 // Se define la URL base para las solicitudes a la API
 const url = `https://code-editor-service.onrender.com/api/`;

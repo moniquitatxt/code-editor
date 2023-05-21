@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { runCode, setEngine, setOptions } from "client-side-python-runner";
-
+import { runCode, setEngine, setOptions } from "client-side-python-runner"; // Importa las funciones necesarias para ejecutar código Python en el lado del cliente
 import {
 	Box,
-	Button,
 	Container,
 	Divider,
 	Flex,
@@ -38,15 +36,19 @@ import { useRef } from "react";
 import { saveAs } from "file-saver";
 const ProjectCodeEditor = () => {
 	const { username, id, projectId } = useParams();
+	// Obtiene los parámetros de la URL mediante el hook useParams
+	// Se crean referencias para elementos del DOM
 	const myRef = useRef();
 	const refSalida = useRef();
 	const refError = useRef();
+	// Crea variables y funciones de estado para el manejo de un modal
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const [name, setName] = useState();
-	const [code, setCode] = useState();
-	const [description, setDescription] = useState();
+	const [name, setName] = useState(); // Crea una variable de estado para el nombre del proyecto
+	const [code, setCode] = useState(); // Crea una variable de estado para el código del proyecto
+	const [description, setDescription] = useState(); // Crea una variable de estado para la descripción del proyecto
 
+	// Función para exportar el código como archivo
 	const exportar_codigo = () => {
 		const contenido = code;
 		const nombre = `${name}.py`;
@@ -56,55 +58,65 @@ const ProjectCodeEditor = () => {
 		saveAs(proyecto);
 	};
 
+	// Obtener el proyecto y establecer los datos iniciales
 	useEffect(() => {
 		const getProjectWrap = async (callback) => {
+			// Llama a la función getProject para obtener los datos del proyecto
 			const data = await getProject(id, projectId);
 			callback(data);
 		};
 
 		getProjectWrap((data) => {
-			setName(data.name);
-			setCode(data.code);
-			setDescription(data.description);
+			setName(data.name); // Establece el nombre del proyecto en la variable de estado
+			setCode(data.code); // Establece el código del proyecto en la variable de estado
+			setDescription(data.description); // Establece la descripción del proyecto en la variable de estado
 		});
 	}, []);
 
+	// Actualizar el código del proyecto
 	const updateCode = async () => {
-		await updateProject(id, projectId, { code });
+		await updateProject(id, projectId, { code }); // Llama a la función updateProject para actualizar el código del proyecto en la base de datos.
 	};
 
-	// Compilacion
-	let mostrar_en_patalla = "";
+	// Compilación y configuración de opciones
+	let mostrar_en_patalla = ""; // Variable para almacenar la salida que se mostrará en pantalla
 
 	const print = (...argumentos) => {
+		// Función para imprimir en pantalla
 		for (let i = 0; i < argumentos.length; i++) {
 			mostrar_en_patalla += argumentos[i] + " ";
 		}
-		mostrar_en_patalla += "<br/>";
+		// Concatena los argumentos y los agrega a la variable mostrar_en_patalla
+		mostrar_en_patalla += "<br/>"; // Agrega una etiqueta <br/> al final para mostrar el siguiente resultado en una nueva línea
 	};
 
 	const configuracion = async () => {
+		// Función para configurar opciones de ejecución
 		setOptions({
-			output: print,
+			output: print, // Establece la función print como opción de salida para mostrar el resultado en pantalla
 		});
-		await setEngine("pyodide");
+		await setEngine("pyodide"); // Establece el motor de ejecución de Python como "pyodide"
 	};
 
-	configuracion();
+	configuracion(); // Llama a la función de configuración al renderizar el componente
+
+	// Ejecución del código
 	const ejecutar = async () => {
 		try {
-			await runCode(code);
+			await runCode(code); // Ejecuta el código utilizando la función runCode
 
 			if (mostrar_en_patalla) {
-				refSalida.current.innerHTML = mostrar_en_patalla;
+				refSalida.current.innerHTML = mostrar_en_patalla; // Actualiza el contenido del elemento refSalida con la salida mostrada en pantalla
 			}
 		} catch ({ message }) {
-			refError.current.innerHTML = message;
+			alert("Error, puede visualizarlo abajo"); // Muestra una alerta en caso de error
+			refError.current.innerHTML = message; // Actualiza el contenido del elemento refError con el mensaje de error
 		}
 	};
 
 	return (
 		<Container autoFocus mt={10} maxW="container.lg">
+			{/* Botón para volver atrás */}
 			<IconButton
 				aria-label="Volver atrás"
 				icon={<FaArrowLeft />}
@@ -113,6 +125,7 @@ const ProjectCodeEditor = () => {
 			/>
 			<Flex justifyContent="space-between" alignItems="center" my={4}>
 				<Flex alignItems="center">
+					{/* Descripción del proyecto */}
 					<Popover>
 						<PopoverTrigger>
 							<Box as="span" mr={2}>
@@ -137,6 +150,7 @@ const ProjectCodeEditor = () => {
 				</Flex>
 
 				<Flex alignItems="center">
+					{/* Botón de guardar */}
 					<Tooltip label="Guardar">
 						<IconButton
 							icon={<FaSave />}
@@ -145,6 +159,7 @@ const ProjectCodeEditor = () => {
 							mr={2}
 						/>
 					</Tooltip>
+					{/* Botón de eliminar */}
 					<Tooltip label="Eliminar">
 						<IconButton
 							ref={myRef}
@@ -166,6 +181,7 @@ const ProjectCodeEditor = () => {
 							onClose();
 						}}
 					/>
+					{/* Botón de ejecutar */}
 					<Tooltip label="Ejecutar">
 						<IconButton
 							icon={<FaPlay />}
@@ -176,9 +192,7 @@ const ProjectCodeEditor = () => {
 							mr={2}
 						/>
 					</Tooltip>
-					<Tooltip label="Importar">
-						<IconButton icon={<FaFileImport />} aria-label="Importar" mr={2} />
-					</Tooltip>
+					{/* Botón de exportar */}
 					<Tooltip label="Exportar">
 						<IconButton
 							icon={<FaFileExport />}
@@ -208,15 +222,15 @@ const ProjectCodeEditor = () => {
 			</Text>
 			<Box h="50vh" overflowY="auto" bg="gray.100" p={1} mb={5}>
 				<Text ref={refSalida}></Text>
-				{/* Aquí podrías agregar el código para mostrar la salida */}
+				{/* Muestra la salida del código en pantalla */}
 			</Box>
 
-			<Text fontSize="lg" mb={2} fontWeight="bold">
+			<Text fontSize="lg" mb={2} color="red" fontWeight="bold">
 				Error:
 			</Text>
-			<Box h="50vh" overflowY="auto" bg="gray.100" p={1} mb={5}>
+			<Box h="50vh" overflowY="auto" bg="red.100" color="red" p={1} mb={5}>
 				<Text ref={refError}></Text>
-				{/* Aquí podrías agregar el código para mostrar la salida */}
+				{/* Muestra los mensajes de error en pantalla */}
 			</Box>
 		</Container>
 	);

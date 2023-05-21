@@ -14,22 +14,30 @@ import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+	//variables de estado para manejar los inputs del llenado de los datos del usuario
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [rPassword, setRPassword] = useState("");
+
+	//hook de react router para navegar entre páginas
 	const navigate = useNavigate();
 
+	//función que se ejecuta al dar clic a registrarse
 	const onSubmit = async () => {
-		console.log(username);
+		//verificación del llenado de todos los campos
+
 		if (username === "" || name === "" || password === "" || rPassword === "") {
 			alert("Por favor, complete todos los campos.");
 			return;
-		} else if (password != rPassword) {
+		} //Verificación de la repetición de la contraseña
+		else if (password != rPassword) {
 			alert("Las contraseñas no coinciden.");
 			return;
 		}
+		//Espera de la respuesta de creación del usuario
 		const response = await createUser({ name, username, password });
+		//si hubo respuesta y la respuesta fue positiva entonces el usuario fue creado y se redirige al home del usuario registrado
 		if (response != undefined && response.ok) navigate(`/home/${username}`);
 	};
 
@@ -46,6 +54,7 @@ const SignUp = () => {
 			>
 				<Flex mx="10%" align="center" justify="center" height="100%">
 					<Box w="100%" align="center" justify="center">
+						{/* Inputs */}
 						<FormControl>
 							<FormLabel>Nombre completo</FormLabel>
 							<TextInput
@@ -82,10 +91,12 @@ const SignUp = () => {
 								onChange={(e) => setRPassword(e.target.value)}
 							/>
 						</FormControl>
+						{/* Botón de registrarse */}
 						<Button m="10" onClick={onSubmit} colorScheme="green">
 							Registrarme
 						</Button>
 						<Box>
+							{/* Link que lleva al usuario registrado a loguearse */}
 							<Link
 								fontWeight="bold"
 								_hover={{ textDecoration: "underline", color: "blue.500" }}

@@ -1,4 +1,6 @@
 // Se define la URL base para las solicitudes a la API
+//Leyenda los "response = await fetch" son peticiones a la API con su correspondiente método y ruta
+
 const url = `https://code-editor-service.onrender.com/api/`;
 
 // Se define una función asincrónica que realiza una solicitud de inicio de sesión a la API

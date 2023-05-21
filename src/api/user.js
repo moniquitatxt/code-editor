@@ -1,4 +1,5 @@
-//Este archivo tiene las funciones que contienen las peticiones correspondientes para el CRUD de los usuarioss
+//Este archivo tiene las funciones que contienen las peticiones correspondientes para el CRUD de los usuarios
+//Leyenda los "response = await fetch" son peticiones a la API con su correspondiente método y ruta
 
 // Se define la URL base para las solicitudes a la API
 const url = `https://code-editor-service.onrender.com/api/`;
@@ -34,6 +35,7 @@ export const getUsers = async (callback) => {
 
 	const data = await response.json();
 
+	//la función callback será una que tome como parametro el arreglo de usuarios y lo pase por una función setUsers dentro de un useEffect
 	callback(data);
 };
 
@@ -49,6 +51,7 @@ export const getUser = async (username) => {
 	return user;
 };
 
+// Una función que recibe un parámetro "uid" que representa el ID del usuario que se quiere eliminar
 export const deleteUser = async (uid) => {
 	try {
 		const response = await fetch(`${url}users/${uid}`, {

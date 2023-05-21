@@ -4,10 +4,16 @@ import { Box, Container, SimpleGrid, Text } from "@chakra-ui/react";
 import UserCard from "../components/UserCard";
 import { getUsers } from "../api/user";
 
+//Este elemento es la página de inicio del administrador
+//Aquí el administrador podrá ver los UserCard (ver componente) con la info de todos los usuarios registrados
 const AdminHome = () => {
+	//variable de estado y su función set para guardar los usuarios
 	const [users, setUsers] = useState([]);
 
+	//Función que se ejecuta una vez al cargar la página
 	useEffect(() => {
+		//Función para obtener de la base de datos los usuarios y colocarlos con el set en la variable de estado users.
+		//Esta función getUsers hace una petición al servidor para obtener los usuarios y toda su información
 		getUsers((users) => setUsers(users));
 	}, []);
 
@@ -22,13 +28,18 @@ const AdminHome = () => {
 					Lista de usuarios
 				</Text>
 			</Box>
+			{/* Componente que es un grid para mostrar en columnas el elemento deseado */}
 			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
-				{users.map(
-					(user, index) =>
-						user.username !== "Administrador" && (
-							<UserCard key={index} user={user} />
-						)
-				)}
+				{
+					//Por cada usuario del arreglo de usuarios definidos en el useEffect, devuelve una card que muestre la información de ese usuario
+					//Hacer esto con cada uno de los usuarios, excepto si es el administrador, no mostrar la info de este
+					users.map(
+						(user, index) =>
+							user.username !== "Administrador" && (
+								<UserCard key={index} user={user} />
+							)
+					)
+				}
 			</SimpleGrid>
 		</Container>
 	);

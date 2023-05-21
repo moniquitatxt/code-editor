@@ -1,29 +1,37 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import {
 	Modal,
 	ModalOverlay,
 	ModalContent,
-	ModalHeader,
 	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
 	Button,
-	Textarea,
-	Input,
 } from "@chakra-ui/react";
 import { deleteProject } from "../api/project";
 import { useNavigate } from "react-router-dom";
 
+//Este es un componente modal que abre una ventana dentro de la misma página.
+//Su función es preguntar por la confirmación de eliminación de un proyecto
+//Recibe por Props el nombre de usuario, su id, el id del proyecto y sus funciones correspondientes para cerrar y abrir la ventana
 const DeleteModal = ({ username, userId, projectId, isOpen, onClose }) => {
+	//Este es un hook de la librería de rutas react router dom, que produce un objeto con el cual se puede navegar entre paginas, recibe un url
 	const navigate = useNavigate();
 
+	//Declaración de la función de las instrucciones que se ven a ejecutar cuando se seleccione confirmar la eliminación del proyecto
 	const deleteP = async () => {
+		//Es una función asíncrona y aquí llama a la función de eliminar proyecto de la carpeta api, que recibe el id del usuario y el id del proyecto
+		//Esta función deleteProject hace una llamada al servidor para eliminar el proyecto en la base datos
 		await deleteProject(userId, projectId);
+
+		//Después de eliminar, navega al inicio del usuario logeado
 		navigate(`/home/${username}`);
+		//Se cierra el modal
 		onClose();
 	};
 
 	return (
+		//Este es un componente modal de la librería chakra
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
@@ -32,6 +40,7 @@ const DeleteModal = ({ username, userId, projectId, isOpen, onClose }) => {
 				</ModalBody>
 				<ModalCloseButton />
 				<ModalFooter>
+					{/*Este es el botón que al hacer onClick se ejecuta la función de eliminar*/}
 					<Button mx="10px" colorScheme="red" onClick={deleteP}>
 						Eliminar
 					</Button>
