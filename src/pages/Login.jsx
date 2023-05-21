@@ -12,6 +12,7 @@ import {
 import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../api/user";
+import { login } from "../api/auth";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -19,9 +20,9 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const onSubmit = async () => {
-		const user = await getUser(username);
+		const response = await login({ username, password });
 
-		if (user) {
+		if (response != undefined && response.ok) {
 			navigate(`/home/${username}`);
 		}
 	};
