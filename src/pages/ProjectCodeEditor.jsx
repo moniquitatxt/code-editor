@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { runCode, setEngine, setOptions } from "client-side-python-runner";
+
 import {
 	Box,
 	Button,
@@ -32,17 +34,28 @@ import {
 import { useParams } from "react-router";
 import { getProject, updateProject } from "../api/project";
 import DeleteModal from "../components/DeleteModal";
-
+import { useRef } from "react";
+import { saveAs } from "file-saver";
 const ProjectCodeEditor = () => {
 	const { username, id, projectId } = useParams();
 	const initialRef = React.useRef(null);
 	const finalRef = React.useRef(null);
-
+	const refSalida = useRef();
+	const refError = useRef();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const [name, setName] = useState();
 	const [code, setCode] = useState();
 	const [description, setDescription] = useState();
+
+	const exportar_codigo = () => {
+		const contenido = code;
+		const nombre = `${name}.py`;
+
+		const proyecto = new File([contenido], nombre, { type: "text/plain" });
+
+		saveAs(proyecto);
+	};
 
 	useEffect(() => {
 		const getProjectWrap = async (callback) => {
@@ -59,6 +72,36 @@ const ProjectCodeEditor = () => {
 
 	const updateCode = async () => {
 		await updateProject(id, projectId, { code });
+	};
+
+	// Compilacion
+	let mostrar_en_patalla = "";
+
+	const print = (...argumentos) => {
+		for (let i = 0; i < argumentos.length; i++) {
+			mostrar_en_patalla += argumentos[i] + " ";
+		}
+		mostrar_en_patalla += "<br/>";
+	};
+
+	const configuracion = async () => {
+		setOptions({
+			output: print,
+		});
+		await setEngine("pyodide");
+	};
+
+	configuracion();
+	const ejecutar = async () => {
+		try {
+			await runCode(code);
+
+			if (mostrar_en_patalla) {
+				refSalida.current.innerHTML = mostrar_en_patalla;
+			}
+		} catch ({ message }) {
+			refError.current.innerHTML = message;
+		}
 	};
 
 	return (
@@ -124,23 +167,22 @@ const ProjectCodeEditor = () => {
 						<IconButton
 							icon={<FaPlay />}
 							aria-label="Ejecutar"
-							onClick={() => {}}
+							onClick={() => {
+								ejecutar();
+							}}
 							mr={2}
 						/>
 					</Tooltip>
 					<Tooltip label="Importar">
-						<IconButton
-							icon={<FaFileImport />}
-							aria-label="Importar"
-							onClick={() => {}}
-							mr={2}
-						/>
+						<IconButton icon={<FaFileImport />} aria-label="Importar" mr={2} />
 					</Tooltip>
 					<Tooltip label="Exportar">
 						<IconButton
 							icon={<FaFileExport />}
 							aria-label="Exportar"
-							onClick={() => {}}
+							onClick={() => {
+								exportar_codigo();
+							}}
 						/>
 					</Tooltip>
 				</Flex>
@@ -162,6 +204,15 @@ const ProjectCodeEditor = () => {
 				Resultado:
 			</Text>
 			<Box h="50vh" overflowY="auto" bg="gray.100" p={1} mb={5}>
+				<Text ref={refSalida}></Text>
+				{/* Aquí podrías agregar el código para mostrar la salida */}
+			</Box>
+
+			<Text fontSize="lg" mb={2} fontWeight="bold">
+				Error:
+			</Text>
+			<Box h="50vh" overflowY="auto" bg="gray.100" p={1} mb={5}>
+				<Text ref={refError}></Text>
 				{/* Aquí podrías agregar el código para mostrar la salida */}
 			</Box>
 		</Container>
