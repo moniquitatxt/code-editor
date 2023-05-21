@@ -20,9 +20,9 @@ const UserCard = ({ user }) => {
 	let truncatedName = user.name;
 	//Si el nombre de usuario y el nombre real son más largos de 12 caracteres
 	//Los trunca y coloca puntos suspensivos ..
-	if (user.username.length > 12 || user.name.length > 12) {
-		truncatedUsername = user.username.slice(0, 12) + "...";
-		truncatedName = user.name.slice(0, 12) + "...";
+	if (user.username.length > 15 || user.name.length > 15) {
+		truncatedUsername = user.username.slice(0, 15) + "...";
+		truncatedName = user.name.slice(0, 15) + "...";
 	}
 
 	// Obtiene la función useDisclosure de Chakra UI para mostrar y ocultar el modal de eliminación de usuario

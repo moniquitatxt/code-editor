@@ -10,6 +10,7 @@ import {
 	Button,
 	Textarea,
 	Input,
+	useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser } from "../api/user";
@@ -21,14 +22,14 @@ import { deleteUser } from "../api/user";
 const UserDeleteModal = ({ userId, isOpen, onClose }) => {
 	//Este es un hook de la librería de rutas react router dom, que produce un objeto con el cual se puede navegar entre paginas, recibe un url
 	const navigate = useNavigate();
+	const toast = useToast();
 
 	//Declaración de la función de las instrucciones que se ven a ejecutar cuando se seleccione confirmar la eliminación del usuario
 	const deleteP = async () => {
 		//Es una función asíncrona y aquí llama a la función de eliminar usuario de la carpeta api, que recibe el id del usuario
 		//Esta función deleteUser hace una llamada al servidor para eliminar el usuario en la base datos
-		await deleteUser(userId);
-		//Después de eliminar, navega al inicio del administrador
-		navigate(`/home/Administrador`);
+		const response = await deleteUser(userId);
+		toast(response);
 		//Se cierra el modal
 		onClose();
 	};

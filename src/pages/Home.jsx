@@ -80,7 +80,7 @@ const Home = () => {
 				/>
 			</Flex>
 			{/* Grid que muestra en columnas los cards con la información de los proyectos */}
-			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
+			<SimpleGrid columns={[1, 1, 2, 3]} spacing={8}>
 				{
 					//Por cada proyecto del arreglo de proyectos definidos en el useEffect, devuelve una card que muestre la información de ese proyecto
 					//Hacer esto con cada uno de los proyectos

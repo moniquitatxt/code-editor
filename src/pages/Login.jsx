@@ -9,6 +9,7 @@ import {
 	Image,
 	Input,
 	Link,
+	useToast,
 } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
@@ -21,14 +22,16 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	//hook de react router para navegar entre páginas
 	const navigate = useNavigate();
+	const toast = useToast();
 
 	//función que se ejecuta al dar click a iniciar sesión de tipo submit y asíncrona
 	const onSubmit = async () => {
 		//Ejecuta la petición para iniciar sesión al servidor con los parámetros de usuario y contraseña
 		//Espera la respuesta para determinar si puedo iniciar sesión
 		const response = await login({ username, password });
+		toast(response);
 		//De existir una respuesta y que esta sea positiva entonces navegar el home del usuario logeado
-		if (response != undefined && response.ok) {
+		if (response.status == "success") {
 			navigate(`/home/${username}`);
 		}
 	};

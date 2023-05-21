@@ -19,10 +19,22 @@ export const createUser = async (user) => {
 		}
 
 		const data = await response.json();
-		alert("Registro exitoso");
-		return response;
+
+		return {
+			title: "Cuenta creada",
+			description: "Tu cuenta ha sido creada exitosamente",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
-		alert(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };
 
@@ -62,8 +74,20 @@ export const deleteUser = async (uid) => {
 			console.log(response);
 			throw new Error(error.message);
 		}
-		console.log(response);
+		return {
+			title: "Usuario eliminado",
+			description: "El usuario ha sido eliminado correctamente",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
-		console.log(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };

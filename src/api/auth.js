@@ -19,12 +19,22 @@ export const login = async (logData) => {
 		}
 
 		const data = await response.json();
-		alert("Inicio exitoso");
 
-		console.log(data);
-		return response;
+		return {
+			title: "Inicio de sesión",
+			description: "Has iniciado sesión correctamente",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
 		// Si ocurre algún error durante la ejecución de la función, se muestra un mensaje de alerta con el mensaje de error correspondiente
-		alert(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };

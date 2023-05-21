@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Box, Container, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import UserCard from "../components/UserCard";
 import { getUsers } from "../api/user";
 
@@ -18,8 +18,8 @@ const AdminHome = () => {
 	}, []);
 
 	return (
-		<Container maxW="container.lg" py="6">
-			<Box mb="4">
+		<Box p={8}>
+			<Flex justifyContent="space-between" alignItems="center" mb={8}>
 				<Text
 					fontSize="2xl"
 					fontWeight="semibold"
@@ -27,9 +27,10 @@ const AdminHome = () => {
 				>
 					Lista de usuarios
 				</Text>
-			</Box>
+			</Flex>
+
 			{/* Componente que es un grid para mostrar en columnas el elemento deseado */}
-			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
+			<SimpleGrid columns={[1, 1, 2, 3]} spacing={8}>
 				{
 					//Por cada usuario del arreglo de usuarios definidos en el useEffect, devuelve una card que muestre la información de ese usuario
 					//Hacer esto con cada uno de los usuarios, excepto si es el administrador, no mostrar la info de este
@@ -41,7 +42,7 @@ const AdminHome = () => {
 					)
 				}
 			</SimpleGrid>
-		</Container>
+		</Box>
 	);
 };
 

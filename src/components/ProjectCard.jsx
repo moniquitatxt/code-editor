@@ -17,8 +17,8 @@ const ProjectCard = ({ username, uid, project }) => {
 
 	// Abrevia el nombre del proyecto si la longitud es mayor a 12 caracteres
 	let truncatedProjectName = project.name;
-	if (project.name.length > 12) {
-		truncatedProjectName = project.name.slice(0, 12) + "...";
+	if (project.name.length > 15) {
+		truncatedProjectName = project.name.slice(0, 15) + "...";
 	}
 
 	// Crea una nueva fecha a partir del tiempo de creación del proyecto y la convierte en una cadena en formato local

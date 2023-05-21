@@ -19,6 +19,7 @@ import {
 	Textarea,
 	Tooltip,
 	useDisclosure,
+	useToast,
 } from "@chakra-ui/react";
 import {
 	FaArrowLeft,
@@ -33,7 +34,9 @@ import { getProject, updateProject } from "../api/project";
 import DeleteModal from "../components/DeleteModal";
 import { useRef } from "react";
 import { saveAs } from "file-saver";
+
 const ProjectCodeEditor = () => {
+	const toast = useToast();
 	const { username, id, projectId } = useParams();
 	// Obtiene los parámetros de la URL mediante el hook useParams
 	// Se crean referencias para elementos del DOM
@@ -74,7 +77,8 @@ const ProjectCodeEditor = () => {
 
 	// Actualizar el código del proyecto
 	const updateCode = async () => {
-		await updateProject(id, projectId, { code }); // Llama a la función updateProject para actualizar el código del proyecto en la base de datos.
+		const response = await updateProject(id, projectId, { code }); // Llama a la función updateProject para actualizar el código del proyecto en la base de datos.
+		toast(response);
 	};
 
 	// Compilación y configuración de opciones

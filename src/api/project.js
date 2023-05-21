@@ -22,12 +22,25 @@ export const createProject = async (uid, project) => {
 			throw new Error(error.message);
 		}
 
-		alert("El proyecto ha sido creado exitosamente");
-
 		const data = await response.json();
 		console.log(data);
+
+		return {
+			title: "Proyecto guardado",
+			description: "Tu proyecto ha sido creado exitosamente",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
 		console.log(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };
 /* Una función que recibe el ID del usuario y una función `callback` como parámetros, y realiza una solicitud HTTP GET para obtener todos los proyectos asociados a ese usuario*/
@@ -48,7 +61,7 @@ export const getProject = async (uid, projectId) => {
 		headers: { "Content-Type": "application/json" },
 	});
 	const project = await response.json();
-	console.log(project);
+
 	return project;
 };
 
@@ -67,12 +80,24 @@ export const updateProject = async (uid, projectId, code) => {
 			throw new Error(error.message);
 		}
 
-		alert("El proyecto ha sido actualizado exitosamente");
-
 		const data = await response.json();
 		console.log(data);
+		return {
+			title: "Proyecto guardado",
+			description: "Tu código ha sido actualizado con los nuevos cambios",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
 		console.log(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };
 
@@ -90,7 +115,21 @@ export const deleteProject = async (uid, projectId) => {
 			throw new Error(error.message);
 		}
 		console.log(response);
+		return {
+			title: "Proyecto eliminado",
+			description: "Tu proyecto ha sido eliminado exitosamente",
+			status: "success",
+			duration: 5000,
+			isClosable: true,
+		};
 	} catch (error) {
 		console.log(error.message);
+		return {
+			title: "Error",
+			description: error.message,
+			status: "error",
+			duration: 5000,
+			isClosable: true,
+		};
 	}
 };

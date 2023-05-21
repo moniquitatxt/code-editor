@@ -8,6 +8,7 @@ import {
 	Image,
 	Input,
 	Link,
+	useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { createUser } from "../api/user";
@@ -20,7 +21,7 @@ const SignUp = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [rPassword, setRPassword] = useState("");
-
+	const toast = useToast();
 	//hook de react router para navegar entre páginas
 	const navigate = useNavigate();
 
@@ -38,8 +39,12 @@ const SignUp = () => {
 		}
 		//Espera de la respuesta de creación del usuario
 		const response = await createUser({ name, username, password });
+
+		toast(response);
 		//si hubo respuesta y la respuesta fue positiva entonces el usuario fue creado y se redirige al home del usuario registrado
-		if (response != undefined && response.ok) navigate(`/home/${username}`);
+		if (response.status == "success") {
+			navigate(`/home/${username}`);
+		}
 	};
 
 	return (

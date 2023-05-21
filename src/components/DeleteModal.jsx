@@ -7,6 +7,7 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	Button,
+	useToast,
 } from "@chakra-ui/react";
 import { deleteProject } from "../api/project";
 import { useNavigate } from "react-router-dom";
@@ -17,17 +18,17 @@ import { useNavigate } from "react-router-dom";
 const DeleteModal = ({ username, userId, projectId, isOpen, onClose }) => {
 	//Este es un hook de la librería de rutas react router dom, que produce un objeto con el cual se puede navegar entre paginas, recibe un url
 	const navigate = useNavigate();
+	const toast = useToast();
 
 	//Declaración de la función de las instrucciones que se ven a ejecutar cuando se seleccione confirmar la eliminación del proyecto
 	const deleteP = async () => {
 		//Es una función asíncrona y aquí llama a la función de eliminar proyecto de la carpeta api, que recibe el id del usuario y el id del proyecto
 		//Esta función deleteProject hace una llamada al servidor para eliminar el proyecto en la base datos
-		await deleteProject(userId, projectId);
+		const response = await deleteProject(userId, projectId);
+		toast(response);
 
 		//Después de eliminar, navega al inicio del usuario logeado
 		navigate(`/home/${username}`);
-		//Se cierra el modal
-		onClose();
 	};
 
 	return (

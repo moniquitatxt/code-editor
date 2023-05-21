@@ -6,19 +6,20 @@ import {
 	Text,
 	UnorderedList,
 	ListItem,
+	IconButton,
 } from "@chakra-ui/react";
-import {
-	FaArrowLeft,
-	FaFileExport,
-	FaInfoCircle,
-	FaPlay,
-	FaSave,
-	FaTrash,
-} from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Manual = () => {
 	return (
 		<Container mt={10} maxW="container.lg">
+			{/* Botón para volver atrás */}
+			<IconButton
+				aria-label="Volver atrás"
+				icon={<FaArrowLeft />}
+				onClick={() => window.history.back()}
+				mr={2}
+			/>
 			<Heading size="lg" mb={4}>
 				Manual de Usuario - Editor de Código
 			</Heading>
