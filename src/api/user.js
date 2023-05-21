@@ -15,7 +15,7 @@ export const createUser = async (user) => {
 
 		const data = await response.json();
 		alert("Registro exitoso");
-		console.log(data);
+		return response;
 	} catch (error) {
 		alert(error.message);
 	}
@@ -41,4 +41,20 @@ export const getUser = async (username) => {
 	const user = await response.json();
 
 	return user;
+};
+
+export const deleteUser = async (uid) => {
+	try {
+		const response = await fetch(`${url}users/${uid}`, {
+			method: "DELETE",
+		});
+		if (!response.ok) {
+			const error = await response.json();
+			console.log(response);
+			throw new Error(error.message);
+		}
+		console.log(response);
+	} catch (error) {
+		console.log(error.message);
+	}
 };

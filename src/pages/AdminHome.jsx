@@ -14,14 +14,21 @@ const AdminHome = () => {
 	return (
 		<Container maxW="container.lg" py="6">
 			<Box mb="4">
-				<Text fontSize="2xl" fontFamily="Montserrat, sans-serif">
+				<Text
+					fontSize="2xl"
+					fontWeight="semibold"
+					fontFamily="Montserrat, sans-serif"
+				>
 					Lista de usuarios
 				</Text>
 			</Box>
 			<SimpleGrid columns={[1, 2, 3]} spacing={8}>
-				{users.map((user, index) => (
-					<UserCard key={index} user={user} />
-				))}
+				{users.map(
+					(user, index) =>
+						user.username !== "Administrador" && (
+							<UserCard key={index} user={user} />
+						)
+				)}
 			</SimpleGrid>
 		</Container>
 	);

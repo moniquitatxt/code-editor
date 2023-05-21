@@ -29,7 +29,8 @@ const SignUp = () => {
 			alert("Las contraseñas no coinciden.");
 			return;
 		}
-		await createUser({ name, username, password });
+		const response = await createUser({ name, username, password });
+		if (response != undefined && response.ok) navigate(`/home/${username}`);
 	};
 
 	return (

@@ -6,6 +6,7 @@ import AdminHome from "../pages/AdminHome";
 import SignUp from "../pages/SignUp";
 import ProjectCodeEditor from "../pages/ProjectCodeEditor";
 import Header from "../components/Header";
+import WhichHome from "../pages/WhichHome";
 
 export const Router = createBrowserRouter([
 	{
@@ -26,7 +27,7 @@ export const Router = createBrowserRouter([
 		children: [
 			{
 				path: "/home/:username",
-				element: <Home />,
+				element: <WhichHome />,
 			},
 			{
 				path: "/home/:username/:id/:projectId",
