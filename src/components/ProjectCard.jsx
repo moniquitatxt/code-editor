@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Box,
 	Flex,
@@ -9,19 +9,22 @@ import {
 	Heading,
 	Button,
 } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import { FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ username, uid, project }) => {
+	const navigate = useNavigate();
+
 	let truncatedProjectName = project.name;
 	if (project.name.length > 12) {
 		truncatedProjectName = project.name.slice(0, 12) + "...";
 	}
 
+	const createdAtDate = new Date(project.createdAt);
+	const formattedDate = createdAtDate.toLocaleDateString();
+
 	return (
 		<Box borderWidth="1px" borderRadius="lg" p={4} bg="white" boxShadow="md">
 			<Flex justifyContent="space-between" alignItems="center">
-				<Icon color="blue.500" as={FaUser} boxSize="36px" mr="2" />
 				<Box>
 					<Tooltip label={project.name}>
 						<Heading
@@ -35,20 +38,20 @@ const ProjectCard = ({ project }) => {
 							{truncatedProjectName}
 						</Heading>
 					</Tooltip>
-					<Button colorScheme="blue">Ver Proyecto</Button>
+					<Button
+						onClick={() => {
+							navigate(`/home/${username}/${uid}/${project._id}`);
+						}}
+						colorScheme="blue"
+					>
+						Ver Proyecto
+					</Button>
 				</Box>
-				<Flex>
-					<Tooltip label="Editar proyecto">
-						<IconButton
-							aria-label="Editar proyecto"
-							icon={<EditIcon />}
-							mr="2"
-						/>
-					</Tooltip>
-					<Tooltip label="Eliminar proyecto">
-						<IconButton aria-label="Eliminar proyecto" icon={<DeleteIcon />} />
-					</Tooltip>
-				</Flex>
+				<Box>
+					<Text fontSize="sm" color="gray.500" mt={4}>
+						Creado el {formattedDate}
+					</Text>
+				</Box>
 			</Flex>
 		</Box>
 	);
