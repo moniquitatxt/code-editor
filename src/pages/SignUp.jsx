@@ -5,6 +5,7 @@ import {
 	Flex,
 	FormControl,
 	FormLabel,
+	Image,
 	Input,
 	Link,
 } from "@chakra-ui/react";
