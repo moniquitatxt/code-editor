@@ -21,13 +21,17 @@ import { createProject } from "../api/project";
 const ProjectModal = ({ userId, isOpen, onClose }) => {
 	//Variable de estado y su función set para manejar el input del nombre del proyecto
 	const [name, setName] = useState("");
-	const toast = useToast();
-
 	//Variable de estado y su función set para manejar el input de la descripción del proyecto
 	const [description, setDescription] = useState("");
 
+	const toast = useToast();
 	//Función para al hacer click ejecute la función de creación del proyecto
 	const onSubmit = async () => {
+		if (name === "" || description === "") {
+			alert("Por favor, complete todos los campos.");
+			return;
+		}
+
 		//Espera a la función de la api que recibe el id del usuario y un objeto con el nombre y descripción del proyecto para crearlo
 		//Esta función createProject hace una llamada al servidor para crear el proyecto
 		const response = await createProject(userId, { name, description });
@@ -48,14 +52,12 @@ const ProjectModal = ({ userId, isOpen, onClose }) => {
 					<Input
 						placeholder="Nombre del proyecto"
 						mb={3}
-						required
 						onChange={(e) => setName(e.target.value)}
 					/>
 					{/* Textarea para ingresar la descripción del proyecto */}
 					<Textarea
 						placeholder="Descripción del proyecto"
 						mb={3}
-						required
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 				</ModalBody>

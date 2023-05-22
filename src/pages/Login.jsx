@@ -27,6 +27,10 @@ const Login = () => {
 
 	//función que se ejecuta al dar click a iniciar sesión de tipo submit y asíncrona
 	const onSubmit = async () => {
+		if (username === "" || password === "") {
+			alert("Por favor, complete todos los campos.");
+			return;
+		}
 		//Ejecuta la petición para iniciar sesión al servidor con los parámetros de usuario y contraseña
 		//Espera la respuesta para determinar si puedo iniciar sesión
 		const response = await login({ username, password });
