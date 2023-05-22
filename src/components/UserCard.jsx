@@ -99,7 +99,7 @@ const UserCard = ({ user }) => {
 							<PopoverCloseButton />
 							<PopoverHeader fontWeight="semibold">Proyectos</PopoverHeader>
 							{user.projects.map((project) => (
-								<Box key={project.name} ml={2} mb={2}>
+								<Box textAlign="left" key={project.name} ml={3} my={2}>
 									<Text fontWeight="semibold"> 🔷 {project.name}</Text>
 									<Text color="gray.500">{project.description}</Text>
 								</Box>
