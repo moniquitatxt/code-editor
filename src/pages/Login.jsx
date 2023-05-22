@@ -6,6 +6,7 @@ import {
 	Flex,
 	FormControl,
 	FormLabel,
+	Heading,
 	Image,
 	Input,
 	Link,
@@ -59,6 +60,7 @@ const Login = () => {
 			>
 				<Flex mx="10%" align="center" justify="center" height="100%">
 					<Box w="100%" align="center" justify="center">
+						<Heading>Inicio de sesión</Heading>
 						{/* Inputs */}
 						<FormControl mt="10" id="username">
 							<FormLabel>Usuario</FormLabel>

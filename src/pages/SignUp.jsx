@@ -5,6 +5,7 @@ import {
 	Flex,
 	FormControl,
 	FormLabel,
+	Heading,
 	Image,
 	Input,
 	Link,
@@ -69,6 +70,7 @@ const SignUp = () => {
 			>
 				<Flex mx="10%" align="center" justify="center" height="100%">
 					<Box w="100%" align="center" justify="center">
+						<Heading>Regístrate</Heading>
 						{/* Inputs */}
 						<FormControl>
 							<FormLabel>Nombre completo</FormLabel>

@@ -9,6 +9,13 @@ import {
 	Heading,
 	Button,
 	useDisclosure,
+	PopoverHeader,
+	PopoverCloseButton,
+	PopoverArrow,
+	PopoverContent,
+	PopoverTrigger,
+	Popover,
+	PopoverBody,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FaUser } from "react-icons/fa";
@@ -55,7 +62,7 @@ const UserCard = ({ user }) => {
 					</Box>
 				</Box>
 
-				<Box>
+				<Box textAlign="center" mr={3}>
 					{/*Botón para eliminar usuario que despliega el modal de confirmación de eliminación de un usuario */}
 					<Tooltip label="Eliminar usuario">
 						<IconButton
@@ -78,12 +85,27 @@ const UserCard = ({ user }) => {
 					/>
 					{/*Texto que muestra la cantidad de proyectos que tiene un usuario*/}
 
-					<Box textAlign="right" color="gray.500">
-						<Text fontWeight="bold">
-							{user.projects.length} proyecto
-							{user.projects.length === 1 ? "" : "s"}
-						</Text>
-					</Box>
+					<Popover>
+						<PopoverTrigger>
+							<Box mt={3} color="gray.500">
+								<Text cursor="pointer" fontWeight="bold">
+									{user.projects.length} proyecto
+									{user.projects.length === 1 ? "" : "s"}
+								</Text>
+							</Box>
+						</PopoverTrigger>
+						<PopoverContent>
+							<PopoverArrow />
+							<PopoverCloseButton />
+							<PopoverHeader fontWeight="semibold">Proyectos</PopoverHeader>
+							{user.projects.map((project) => (
+								<Box key={project.name} ml={2} mb={2}>
+									<Text fontWeight="semibold"> 🔷 {project.name}</Text>
+									<Text color="gray.500">{project.description}</Text>
+								</Box>
+							))}
+						</PopoverContent>
+					</Popover>
 				</Box>
 			</Flex>
 		</Box>
